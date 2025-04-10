@@ -1,52 +1,74 @@
-const app = require('./app');
+const express = require('express');
 const sequelize = require('./config/database');
-const exphbs = require('express-handlebars');
-const path = require('path');
+const Comment = require('./models/Comment');
+const Contact = require('./models/Contact');
+const DynamicText = require('./models/DynamicText');
+const commentRoutes = require('./routes/comments');
+const contactRoutes = require('./routes/contacts');
+const dynamicTextRoutes = require('./routes/dynamicTexts');
+const path = require('path'); // Declarar path aquí, solo una vez
 
-const PORT = 3000;
+// Definir app
+const app = express();
 
-// Configuración de Handlebars
-defineHandlebars(app);
+// Middleware para parsear JSON
+app.use(express.json());
 
-function defineHandlebars(app) {
-    app.engine('handlebars', exphbs.engine({
-        defaultLayout: 'main',
-        layoutsDir: path.join(__dirname, 'views', 'layouts'),
-    }));
-    app.set('view engine', 'handlebars');
-    app.set('views', path.join(__dirname, 'views'));
-}
+// Servir archivos estáticos desde la carpeta public
+app.use(express.static('public'));
 
-// Función para mostrar las rutas registradas
-function logRoutes(app) {
-    console.log('Rutas disponibles:');
-    app._router.stack.forEach((middleware) => {
-        if (middleware.route) {
-            // Rutas simples
-            const method = Object.keys(middleware.route.methods)[0].toUpperCase();
-            console.log(`${method} ${middleware.route.path}`);
-        } else if (middleware.name === 'router') {
-            // Rutas enrutadas
-            middleware.handle.stack.forEach((nestedMiddleware) => {
-                if (nestedMiddleware.route) {
-                    const method = Object.keys(nestedMiddleware.route.methods)[0].toUpperCase();
-                    console.log(`${method} ${nestedMiddleware.route.path}`);
-                }
-            });
-        }
-    });
-}
+// Montar las rutas de la API
+app.use('/api/comments', commentRoutes);
+app.use('/api/contacts', contactRoutes);
+app.use('/api/dynamic-texts', dynamicTextRoutes);
 
-sequelize.sync().then(() => {
-    console.log('Base de datos sincronizada');
-
-    // Iniciar servidor
-    app.listen(PORT, () => {
-        console.log(`Servidor escuchando en http://localhost:${PORT}`);
-
-        // Mostrar rutas disponibles
-        logRoutes(app);
-    });
-}).catch((error) => {
-    console.error('Error al sincronizar la base de datos:', error);
+// Rutas para servir archivos HTML
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
+
+app.get('/about', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'about.html'));
+});
+
+app.get('/services', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'services.html'));
+});
+
+app.get('/contact', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'contact.html'));
+});
+
+// Rutas existentes que devuelven JSON (probablemente ya están en tu server.js)
+app.get('/info', (req, res) => {
+    res.json({ message: 'Info endpoint' });
+});
+
+app.get('/users', (req, res) => {
+    res.json({ users: [] }); // Esto es un placeholder, puede que ya tengas lógica aquí
+});
+
+app.post('/users', (req, res) => {
+    res.json({ message: 'User created' }); // Esto es un placeholder, puede que ya tengas lógica aquí
+});
+
+// Sincronizar la base de datos e iniciar el servidor
+const PORT = process.env.PORT || 3000;
+sequelize.sync()
+    .then(() => {
+        console.log('Base de datos sincronizada');
+        app.listen(PORT, () => {
+            console.log(`Servidor escuchando en http://localhost:${PORT}`);
+            console.log('Rutas disponibles:');
+            console.log('GET /');
+            console.log('GET /about');
+            console.log('GET /services');
+            console.log('GET /contact');
+            console.log('POST /users');
+            console.log('GET /users');
+            console.log('GET /info');
+        });
+    })
+    .catch(err => {
+        console.error('Error al sincronizar la base de datos:', err);
+    });
