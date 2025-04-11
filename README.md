@@ -1,15 +1,21 @@
-# Proyecto Final - Desarrollo de Aplicaciones II (Módulo V - VI)
+# Project Budget
 
-Este es el proyecto final para el curso de **Desarrollo de Aplicaciones II**, Módulo V - VI, de la **Universidad Nacional Experimental de los Llanos Occidentales “Ezequiel Zamora”**.
+Una aplicación web para gestionar presupuestos, con una API REST y un frontend integrado. Este proyecto fue desarrollado como parte del curso de Desarrollo de Aplicaciones II.
 
-## Estudiante
-- **Nombre**: Antonio
-- **Cédula**: 30733522
+## Características
+- **API REST**: Endpoints CRUD para gestionar comentarios (`comments`), contactos (`contacts`), y textos dinámicos (`dynamic_texts`).
+- **Frontend**: Páginas HTML para inicio, acerca de, servicios y contacto, con un navbar para facilitar la navegación.
+- **Formularios**: Permite enviar comentarios y mensajes de contacto, con interacción directa con la API.
+- **Estilos modernos**: Diseño limpio y responsivo con CSS, incluyendo un navbar estilizado y sombras para un efecto visual atractivo.
+- **Base de datos**: Integración con MySQL para almacenar datos persistentes.
 
-## Descripción
-Este proyecto consiste en una aplicación web para gestionar presupuestos, basada en el repositorio `project-budget`. Se implementó una base de datos PostgreSQL, esquemas y tablas para manejar comentarios, contactos y textos dinámicos, así como endpoints CRUD para interactuar con las tablas.
+## Requisitos
+- Node.js (versión 14 o superior)
+- MySQL (o el motor de base de datos que estés usando)
+- Git
 
 ## Instalación
-1. Clona el repositorio:
+1. **Clona el repositorio**:
    ```bash
-   git clone https://github.com/Anto2003-cloud/project-budget-30733522.git
+   git clone https://github.com/Anto2003-cloud/project-budget-3073355222.git
+   cd project-budget-3073355222
