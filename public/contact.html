@@ -8,15 +8,29 @@
     <script src="js/script.js"></script>
 </head>
 <body>
-    <h1>Contacto</h1>
-    <h2>Envíanos un mensaje</h2>
-    <p>Si tienes alguna pregunta o necesitas más información, completa el formulario a continuación:</p>
-    <form id="contact-form">
-        <input type="text" id="nombre" placeholder="Nombre" required>
-        <input type="email" id="email" placeholder="Email" required>
-        <textarea id="mensaje" placeholder="Mensaje" required></textarea>
-        <button type="submit">Enviar mensaje</button>
-    </form>
-    <a href="/">Volver al inicio</a>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <ul>
+            <li><a href="/">Inicio</a></li>
+            <li><a href="/about">Acerca de</a></li>
+            <li><a href="/services">Servicios</a></li>
+            <li><a href="/contact">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <!-- Contenido principal -->
+    <div class="container">
+        <h1>Contacto</h1>
+        <p>¿Tienes alguna pregunta? Envíanos un mensaje y te responderemos lo antes posible.</p>
+
+        <!-- Formulario de contacto -->
+        <h2>Envíanos un mensaje</h2>
+        <form id="contact-form">
+            <input type="text" id="nombre" placeholder="Nombre" required>
+            <input type="email" id="email" placeholder="Email" required>
+            <textarea id="mensaje" placeholder="Mensaje" required></textarea>
+            <button type="submit">Enviar mensaje</button>
+        </form>
+    </div>
 </body>
 </html>
